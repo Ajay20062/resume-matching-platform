@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h2>📊 Candidate Matching Dashboard</h2>
+
+
+<input type="text" id="jobId" placeholder="Enter Job ID" />
+<button onclick="loadMatches()">Get Matches</button>
+
+
+<table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th>Match Score</th>
+</tr>
+</thead>
+<tbody id="results"></tbody>
+</table>
+
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
