@@ -4,8 +4,248 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Intelligent Resume Matching Platform</title>
-<link rel="stylesheet" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Enhanced CSS for decoration */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2em;
+    margin: 10px 0 0;
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section {
+    display: none;
+    padding: 40px 0;
+    min-height: 60vh;
+}
+
+section.active {
+    display: block;
+}
+
+.hero {
+    text-align: center;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 10px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.form-container, .dashboard-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input {
+    border: 2px solid #ddd;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.results-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 500;
+}
+
+tr:hover {
+    background: #f5f5f5;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.result-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+
+.result-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.file-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+</style>
 </head>
 <body>
 <header>
@@ -18,14 +258,15 @@
 <nav>
 <div class="container">
 <ul>
-<li><a href="upload-resume.html">📄 Upload Resume</a></li>
-<li><a href="add-job.html">💼 Create Job</a></li>
-<li><a href="dashboard.html">📊 Dashboard</a></li>
+<li><a href="#" onclick="showSection('home')">🏠 Home</a></li>
+<li><a href="#" onclick="showSection('upload')">📄 Upload Resume</a></li>
+<li><a href="#" onclick="showSection('add-job')">💼 Create Job</a></li>
+<li><a href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
 </ul>
 </div>
 </nav>
 
-<section class="hero">
+<section id="home" class="hero active">
 <div class="container">
 <h2>Smart Hiring Starts Here</h2>
 <p>Our advanced AI analyzes resumes, extracts key skills and experience, and matches candidates to job requirements with precision.</p>
@@ -46,12 +287,176 @@
 </div>
 </section>
 
+<section id="upload" class="form-container">
+<div class="container">
+<h2>Upload Your Resume</h2>
+<form id="uploadForm" enctype="multipart/form-data">
+<div class="form-group">
+<label for="resume">Select Resume File</label>
+<input type="file" id="resume" name="resume" accept=".pdf,.docx,.txt" required>
+<p class="file-info">Supported formats: PDF, DOCX, TXT</p>
+</div>
+<div class="form-group">
+<label for="name">Full Name</label>
+<input type="text" id="name" name="name" required>
+</div>
+<button type="submit" class="btn">🚀 Upload & Parse Resume</button>
+</form>
+<div id="result" class="result-message"></div>
+</div>
+</section>
+
+<section id="add-job" class="form-container">
+<div class="container">
+<h2>Create Job</h2>
+<form id="jobForm">
+<div class="form-group">
+<label for="title">Job Title</label>
+<input type="text" id="title" name="title" required>
+</div>
+<div class="form-group">
+<label for="skills">Skills (comma separated)</label>
+<input type="text" id="skills" name="skills" required>
+</div>
+<div class="form-group">
+<label for="exp">Min Experience (years)</label>
+<input type="number" id="exp" name="exp" required>
+</div>
+<button type="submit" class="btn">Create Job</button>
+</form>
+<div id="jobStatus" class="result-message"></div>
+</div>
+</section>
+
+<section id="dashboard" class="dashboard-container">
+<div class="container">
+<h2>Find Matches for a Job</h2>
+<div class="form-group">
+<label for="jobId">Enter Job ID</label>
+<input type="text" id="jobId" placeholder="e.g., 1" required>
+</div>
+<button onclick="loadMatches()" class="btn">🔍 Get Matches</button>
+
+<div id="results-container" class="results-container" style="display: none;">
+<table id="results-table">
+<thead>
+<tr>
+<th>Candidate Name</th>
+<th>Match Score</th>
+<th>Skills</th>
+<th>Experience</th>
+</tr>
+</thead>
+<tbody id="results"></tbody>
+</table>
+</div>
+</div>
+</section>
+
 <footer>
 <div class="container">
 <p>&copy; 2023 Intelligent Resume Matching Platform. All rights reserved.</p>
 </div>
 </footer>
 
-<script src="js/app.js"></script>
+<script>
+// General app functionality
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Intelligent Resume Matching Platform loaded');
+  showSection('home'); // Default to home
+});
+
+// Function to show sections
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('section');
+  sections.forEach(section => section.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+}
+
+// Upload form submission
+document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData();
+  formData.append('resume', document.getElementById('resume').files[0]);
+  formData.append('name', document.getElementById('name').value);
+
+  try {
+    const response = await fetch('http://localhost:5000/api/resume/upload', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = result.message || 'Resume uploaded successfully!';
+    resultDiv.className = 'result-message success';
+    resultDiv.style.display = 'block';
+  } catch (error) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = 'Error uploading resume: ' + error.message;
+    resultDiv.className = 'result-message error';
+    resultDiv.style.display = 'block';
+  }
+});
+
+// Job form submission
+document.getElementById('jobForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const jobData = {
+    title: document.getElementById('title').value,
+    skills: document.getElementById('skills').value.split(',').map(s => s.trim()),
+    experience: parseInt(document.getElementById('exp').value)
+  };
+
+  try {
+    const response = await fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jobData)
+    });
+    const result = await response.json();
+    const statusDiv = document.getElementById('jobStatus');
+    statusDiv.textContent = result.message || 'Job created successfully!';
+    statusDiv.className = 'result-message success';
+    statusDiv.style.display = 'block';
+  } catch (error) {
+    const statusDiv = document.getElementById('jobStatus');
+    statusDiv.textContent = 'Error creating job: ' + error.message;
+    statusDiv.className = 'result-message error';
+    statusDiv.style.display = 'block';
+  }
+});
+
+// Dashboard functionality
+async function loadMatches() {
+  const jobId = document.getElementById('jobId').value;
+  if (!jobId) {
+    alert('Please enter a Job ID');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/match/${jobId}`);
+    const results = await response.json();
+
+    const tbody = document.getElementById('results');
+    tbody.innerHTML = '';
+
+    results.forEach(result => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${result.candidate}</td>
+        <td>${(result.matchScore * 100).toFixed(2)}%</td>
+        <td>${result.skills || 'N/A'}</td>
+        <td>${result.experience || 'N/A'} years</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    document.getElementById('results-container').style.display = 'block';
+  } catch (error) {
+    alert('Error loading matches: ' + error.message);
+  }
+}
+</script>
 </body>
 </html>
