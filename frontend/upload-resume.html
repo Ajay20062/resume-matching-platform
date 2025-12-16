@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Resume - Intelligent Resume Matching Platform</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+<div class="container">
+<h1>📄 Upload Resume</h1>
+<p>Upload your resume and let our AI parse it for optimal matching</p>
+</div>
+</header>
+
+<nav>
+<div class="container">
+<ul>
+<li><a href="index.html">🏠 Home</a></li>
+<li><a href="add-job.html">💼 Create Job</a></li>
+<li><a href="dashboard.html">📊 Dashboard</a></li>
+</ul>
+</div>
+</nav>
+
+<section class="form-container">
+<h2>Upload Your Resume</h2>
+<form id="uploadForm" enctype="multipart/form-data">
+<div class="form-group">
+<label for="resume">Select Resume File</label>
+<input type="file" id="resume" name="resume" accept=".pdf,.docx,.txt" required>
+<p class="file-info">Supported formats: PDF, DOCX, TXT</p>
+</div>
+<div class="form-group">
+<label for="name">Full Name</label>
+<input type="text" id="name" name="name" required>
+</div>
+<button type="submit" class="btn">🚀 Upload & Parse Resume</button>
+</form>
+<div id="result" class="result-message"></div>
+</section>
+
+<footer>
+<div class="container">
+<p>&copy; 2023 Intelligent Resume Matching Platform. All rights reserved.</p>
+</div>
+</footer>
+
+<script src="js/upload.js"></script>
+</body>
+</html>

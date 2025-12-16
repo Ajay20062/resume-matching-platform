@@ -16,3 +16,34 @@ This repository contains the code for a Resume Matching Platform that helps empl
 1. Clone the repository:
    ```bash
    git clone
+Intelligent_Resume_Parsing_Matching_Platform/
+│
+├── frontend/
+│   └── index.html
+│
+├── backend/
+│   ├── server.js
+│   ├── db.js
+│   ├── package.json
+│   ├── uploads/
+│   │
+│   ├── middleware/
+│   │   └── auth.js
+│   │
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── resumeRoutes.js
+│   │   ├── jobRoutes.js
+│   │   ├── matchRoutes.js
+│   │   └── aiMatchRoutes.js
+│   │
+│   └── controllers/
+│       ├── resumeController.js
+│       ├── matchController.js
+│       └── aiMatchController.js
+│
+├── database/
+│   └── schema.sql
+│
+└── README.md
+   

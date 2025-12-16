@@ -1,0 +1,15 @@
+- [ ] Create backend/package.json with dependencies
+- [ ] Create backend/models/index.js for Sequelize setup
+- [ ] Create backend/models/Candidate.js model
+- [ ] Create backend/models/Job.js model
+- [ ] Create backend/services/matcher.js for matching logic
+- [ ] Create backend/controllers/aiMatchController.js
+- [ ] Create backend/routes/authRoutes.js
+- [ ] Create backend/routes/aiMatchRoutes.js
+- [ ] Create backend/middleware/auth.js
+- [ ] Update backend/db.js with DB connection
+- [ ] Update backend/server.js to include all routes
+- [ ] Create backend/uploads/ directory
+- [ ] Check and update frontend files if needed
+- [ ] Install dependencies
+- [ ] Test the app

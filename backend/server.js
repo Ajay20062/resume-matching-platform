@@ -7,6 +7,8 @@ const sequelize = require("./models/index");
 const resumeRoutes = require("./routes/resumeRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const matchRoutes = require("./routes/matchRoutes");
+const authRoutes = require("./routes/authRoutes");
+const aiMatchRoutes = require("./routes/aiMatchRoutes");
 
 
 const app = express();
