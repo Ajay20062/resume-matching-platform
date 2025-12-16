@@ -1,13 +1,26 @@
 const fs = require('fs');
 const path = require('path');
+const pdfParse = require('pdf-parse');
+const mammoth = require('mammoth');
 
 async function parseResume(filePath) {
   try {
-    // Read the file content
-    const content = fs.readFileSync(filePath, 'utf8');
+    const ext = path.extname(filePath).toLowerCase();
+    let content = '';
+
+    if (ext === '.pdf') {
+      const dataBuffer = fs.readFileSync(filePath);
+      const data = await pdfParse(dataBuffer);
+      content = data.text;
+    } else if (ext === '.docx') {
+      const result = await mammoth.extractRawText({ path: filePath });
+      content = result.value;
+    } else {
+      // Assume plain text for other formats
+      content = fs.readFileSync(filePath, 'utf8');
+    }
 
     // Basic parsing logic - extract name, skills, experience
-    // This is a simplified implementation. In a real app, you'd use libraries like pdf-parse or textract
     const lines = content.split('\n');
 
     let name = '';
