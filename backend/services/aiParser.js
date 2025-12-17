@@ -1,83 +1,68 @@
 const OpenAI = require('openai');
-const fs = require('fs');
 
-function getOpenAI() {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('OPENAI_API_KEY environment variable is required for AI features');
-  }
-  return new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-}
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-async function parseResumeWithAI(filePath) {
+async function parseResumeWithAI(content) {
   try {
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const prompt = `Extract the following information from the resume text below:
+- Name
+- Skills (as a comma-separated list)
+- Experience (in years)
+- Education
 
-    const prompt = `Parse the following resume text and extract key information in JSON format:
-    - name: Full name of the candidate
-    - skills: Array of technical skills mentioned
-    - experience: Number of years of experience (estimate if not specified)
-    - education: Highest education level
-    - summary: Brief professional summary
+Resume text:
+${content}
 
-    Resume text:
-    ${fileContent}
+Provide the output in JSON format.`;
 
-    Return only valid JSON.`;
-
-    const response = await getOpenAI().chat.completions.create({
+    const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: prompt }],
-      max_tokens: 500,
-      temperature: 0.3,
+      max_tokens: 300,
     });
 
-    const parsedData = JSON.parse(response.choices[0].message.content.trim());
-    return {
-      name: parsedData.name || 'Unknown',
-      skills: Array.isArray(parsedData.skills) ? parsedData.skills.join(', ') : parsedData.skills || '',
-      experience: parsedData.experience || 0,
-      education: parsedData.education || '',
-      summary: parsedData.summary || '',
-    };
+    const extracted = response.choices[0].message.content.trim();
+    return JSON.parse(extracted);
   } catch (error) {
-    console.error('AI parsing error:', error);
-    throw new Error('Failed to parse resume with AI');
+    throw new Error('AI parsing failed: ' + error.message);
   }
 }
 
 async function matchWithAI(candidate, job) {
   try {
-    const prompt = `Rate how well this candidate matches this job on a scale of 0-1, where 1 is perfect match.
+    const prompt = `Rate how well the following candidate matches the job on a scale of 0 to 1 (where 1 is perfect match). Consider skills, experience, and overall fit.
 
-    Candidate:
-    Name: ${candidate.name}
-    Skills: ${candidate.skills}
-    Experience: ${candidate.experience} years
-    Education: ${candidate.education}
-    Summary: ${candidate.summary}
+Candidate:
+- Name: ${candidate.name}
+- Skills: ${candidate.skills}
+- Experience: ${candidate.experience} years
+- Education: ${candidate.education}
 
-    Job:
-    Title: ${job.title}
-    Required Skills: ${job.required_skills}
-    Minimum Experience: ${job.min_experience} years
+Job:
+- Title: ${job.title}
+- Description: ${job.description}
+- Required Skills: ${job.required_skills}
+- Location: ${job.location}
 
-    Consider skill relevance, experience level, and overall fit. Return only a number between 0 and 1.`;
+Provide only a number between 0 and 1.`;
 
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: prompt }],
       max_tokens: 10,
-      temperature: 0.2,
     });
 
     const score = parseFloat(response.choices[0].message.content.trim());
-    return isNaN(score) ? 0 : Math.max(0, Math.min(1, score));
+    return isNaN(score) ? 0 : score;
   } catch (error) {
-    console.error('AI matching error:', error);
+    console.error('AI matching failed:', error.message);
     return 0;
   }
 }
 
-module.exports = { parseResumeWithAI, matchWithAI };
+module.exports = {
+  parseResumeWithAI,
+  matchWithAI,
+};

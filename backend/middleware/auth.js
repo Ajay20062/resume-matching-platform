@@ -1,15 +1,22 @@
-// Placeholder auth middleware
-const auth = (req, res, next) => {
-  // In a real app, verify JWT token
-  const token = req.header('Authorization');
+const jwt = require('jsonwebtoken');
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
   if (!token) {
-    return res.status(401).json({ message: 'Access denied' });
+    return res.status(401).json({ error: 'Access token required' });
   }
-  // Dummy check
-  if (token !== 'Bearer dummy-token') {
-    return res.status(401).json({ message: 'Invalid token' });
-  }
-  next();
+
+  jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid token' });
+    }
+    req.user = user;
+    next();
+  });
 };
 
-module.exports = auth;
+module.exports = {
+  authenticateToken,
+};
