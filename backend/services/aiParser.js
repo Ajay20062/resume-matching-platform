@@ -1,11 +1,17 @@
 const OpenAI = require('openai');
 
+<<<<<<< HEAD
 let openai = null;
 if (process.env.OPENAI_API_KEY) {
   openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
 }
+=======
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+>>>>>>> e3065255641dc9f131629d521720975a1916768f
 
 async function parseResumeWithAI(content) {
   try {
