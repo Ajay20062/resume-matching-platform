@@ -26,7 +26,8 @@ sequelize.sync().catch(err => {
 app.use("/api/resume", resumeRoutes);
 app.use("/api/job", jobRoutes);
 app.use("/api/match", matchRoutes);
-// app.use("/api/ai", aiRoutes); // Commented out as aiRoutes is not defined
+app.use("/api/auth", authRoutes);
+app.use("/api/ai-match", aiMatchRoutes);
 
 
 const PORT = process.env.PORT || 5000;

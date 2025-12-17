@@ -9,13 +9,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    skills: {
+    description: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
-    experience: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    required_skills: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    salary: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
     },
   }, {
     tableName: 'jobs',
